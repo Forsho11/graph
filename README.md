@@ -1,2 +1,2 @@
 # graph
-#Little bar graph using chart.js
+Little bar graph using chart.js
