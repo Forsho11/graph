@@ -1,5 +1,5 @@
-#changeButton {
-top: 10px;
-position: relative;
-background-color: aqua;
+body{
+    background-image:  url('bg.png');
+    background-repeat: repeat-x;
+    background-color: aqua;
 }
