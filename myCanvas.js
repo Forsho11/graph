@@ -73,3 +73,9 @@ function clickHandler(click) {
 ctx.onclick = clickHandler
 
 var myChart_new = new Chart(ctx, config);
+
+      /*ComboBox*/
+
+var sec = document.createElement("select");
+sec.id = comboBox;
+document.body.appendChild('myChart');
