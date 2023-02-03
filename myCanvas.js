@@ -1,81 +1,55 @@
-var xValues = ["Janeiro", "Fevereiro", "Marco", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+var charts = []
 
-var yValues = [60, 49, 44, 24, 15, 17, 15, 12, 51, 37, 29, 42];
+let header = document.querySelector('#header');
 
-var expectedValues = [60, 40, 50, 30, 20, 20, 10, 15, 50, 40, 20, 30];
+/* Combo Box */
+var select = document.createElement("select");
+select.setAttribute("id", "comboBox");
+var years = [2021, 2022, 2023];
 
-var barColors = [
-    'rgba(255, 99, 132, 0.2)',
-    'rgba(255, 159, 64, 0.2)',
-    'rgba(255, 205, 86, 0.2)',
-    'rgba(75, 192, 192, 0.2)',
-    'rgba(54, 162, 235, 0.2)',
-    'rgba(153, 102, 255, 0.2)',
-    'rgba(201, 203, 207, 0.2)'];
+header.appendChild(select);
 
-var barColorsBorder = [
-    'rgb(255, 99, 132)',
-    'rgb(255, 159, 64)',
-    'rgb(255, 205, 86)',
-    'rgb(75, 192, 192)',
-    'rgb(54, 162, 235)',
-    'rgb(153, 102, 255)',
-    'rgb(201, 203, 207)'];
-
-const ctx = document.getElementById("myChart");
-
-/* Configuration of the library */
-
-const config = ({
-    data: {
-        labels: xValues,
-        datasets: [ 
-            {
-                type: "bar",
-                label: 'Dataset 1',
-                backgroundColor: barColors,
-                borderColor: barColorsBorder,
-                data: yValues,
-                borderWidth: 1,
-            },
-            {
-                type: "line",
-                label: 'Dataset 2',
-                backgroundColor: barColors,
-                borderColor: barColorsBorder,
-                data: expectedValues,
-                borderWidth: 1,
-            },
-
-        ]
-    },
-
-    plugins: [plugin],
-
-    legend: { display: false },
-    title: {
-        display: true,
-        text: "Fulaninho"
-    },
-});
-
-/* ---------------------------------------------- */
-
-
-function clickHandler(click) {
-    const activePoints = myChart_new.getElementsAtEventForMode(click, 'nearest', { intersect: true }, true);
-    if (activePoints.length) {
-        const firstPoint = activePoints[0];
-        alert('Teste');
-    }
+for (var i = 0; i < years.length; i++) {
+    var option = document.createElement("option");
+    option.setAttribute("class", "boxOption")
+    option.value = years[i];
+    option.innerHTML = years[i];
+    select.appendChild(option);
 }
 
-ctx.onclick = clickHandler
+let selector = document.querySelector('#comboBox');
 
-var myChart_new = new Chart(ctx, config);
+selector.addEventListener('change', function () {
+    atualizarDados(selector.value);
 
-      /*ComboBox*/
+});
 
-var sec = document.createElement("select");
-sec.id = comboBox;
-document.body.appendChild('myChart');
+var textBox = document.createElement("input");
+textBox.setAttribute("type", "text");
+textBox.setAttribute("id", "userInput");
+header.appendChild(textBox);
+
+let userInput = document.querySelector('#userInput');
+let comboBox = document.querySelector('#comboBox');
+
+textBox.addEventListener('keypress', function (e) {
+
+    if (e.keyCode == 13) {
+
+        let codPessoa = textBox.value;
+
+        let ano = comboBox.value;
+
+        var param = {};
+        param.codPessoa = codPessoa;
+        param.optionYear = ano;
+        console.log(param)
+
+        sendRequestToController(param);
+        
+    }
+
+})
+
+
+atualizarDados(2021);
